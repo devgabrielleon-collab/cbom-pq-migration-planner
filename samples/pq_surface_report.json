@@ -1,0 +1,42 @@
+{
+  "assets": [
+    {
+      "target": "api.novabank.example:443",
+      "service_type": "https",
+      "exposure": "public",
+      "criticality": "high",
+      "data_sensitivity": "high",
+      "long_lived_data": true,
+      "tls": {
+        "version": "TLSv1.2",
+        "cipher": "ECDHE-RSA-AES256-GCM-SHA384",
+        "certificate": {
+          "public_key_algorithm": "RSA",
+          "public_key_size": 2048,
+          "signature_algorithm": "sha256WithRSAEncryption",
+          "issuer": "Example Issuing CA",
+          "subject": "CN=api.novabank.example"
+        }
+      }
+    },
+    {
+      "target": "admin.novabank.example:22",
+      "service_type": "ssh",
+      "exposure": "internal",
+      "criticality": "medium",
+      "data_sensitivity": "medium",
+      "long_lived_data": false,
+      "tls": {
+        "version": "SSH-2.0",
+        "cipher": "ssh-rsa",
+        "certificate": {
+          "public_key_algorithm": "RSA",
+          "public_key_size": 3072,
+          "signature_algorithm": "ssh-rsa",
+          "issuer": "local",
+          "subject": "admin.novabank.example"
+        }
+      }
+    }
+  ]
+}

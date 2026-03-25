@@ -1,0 +1,84 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.7",
+  "serialNumber": "urn:uuid:12345678-1234-5678-9abc-1234567890ab",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-03-25T12:00:00Z",
+    "component": {
+      "type": "application",
+      "name": "novabank-identity-gateway",
+      "version": "1.0.0"
+    }
+  },
+  "components": [
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "algo-rsa-signing",
+      "name": "RSA-PKCS1-2048-Signing",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "signature",
+          "algorithmFamily": "RSASSA-PKCS1",
+          "parameterSetIdentifier": "2048"
+        }
+      }
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "proto-public-tls",
+      "name": "Public TLS Gateway",
+      "cryptoProperties": {
+        "assetType": "protocol",
+        "protocolProperties": {
+          "type": "tls",
+          "version": "1.2",
+          "algorithms": [
+            "ECDHE-RSA-AES256-GCM-SHA384"
+          ]
+        }
+      }
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "cert-public-api",
+      "name": "api.novabank.example certificate",
+      "cryptoProperties": {
+        "assetType": "certificate",
+        "certificateProperties": {
+          "subject": "CN=api.novabank.example",
+          "issuer": "CN=Example Issuing CA",
+          "state": "active",
+          "signatureAlgorithm": "sha256WithRSAEncryption"
+        }
+      }
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "key-legacy-rsa",
+      "name": "RSA-2048 Active Server Key",
+      "cryptoProperties": {
+        "assetType": "related-crypto-material",
+        "relatedCryptoMaterialProperties": {
+          "type": "private-key",
+          "state": "active",
+          "size": 2048,
+          "format": "PEM"
+        }
+      }
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "algo-aes-gcm",
+      "name": "AES-GCM-256",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "encryption",
+          "algorithmFamily": "AES-GCM"
+        }
+      }
+    }
+  ]
+}

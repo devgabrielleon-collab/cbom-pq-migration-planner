@@ -1,0 +1,260 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CBOM PQ Migration Planner</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 24px; color: #1f2937; }
+    h1, h2 { margin-bottom: 0.3rem; }
+    .cards { display: grid; grid-template-columns: repeat(4, minmax(180px, 1fr)); gap: 12px; margin: 20px 0; }
+    .card { border: 1px solid #d1d5db; border-radius: 12px; padding: 16px; }
+    .muted { color: #6b7280; }
+    table { width: 100%; border-collapse: collapse; margin-top: 18px; }
+    th, td { border: 1px solid #e5e7eb; padding: 10px; text-align: left; font-size: 14px; }
+    th { background: #f9fafb; }
+    .high { color: #b91c1c; font-weight: bold; }
+    .medium { color: #92400e; font-weight: bold; }
+    .low { color: #065f46; font-weight: bold; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 6px; }
+  </style>
+</head>
+<body>
+  <h1>CBOM PQ Migration Planner</h1>
+  <p class="muted">Cryptographic inventory and post-quantum migration roadmap</p>
+
+  <div class="cards">
+    <div class="card"><div class="muted">Total assets</div><div><strong>11</strong></div></div>
+    <div class="card"><div class="muted">High risk</div><div><strong>10</strong></div></div>
+    <div class="card"><div class="muted">Quantum-vulnerable</div><div><strong>10</strong></div></div>
+    <div class="card"><div class="muted">Wave 1</div><div><strong>10</strong></div></div>
+  </div>
+
+  <h2>Milestones</h2>
+  
+    <h3>Wave 1 — by 2028</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Asset</th>
+          <th>Algorithm / Protocol</th>
+          <th>Score</th>
+          <th>Replacement</th>
+        </tr>
+      </thead>
+      <tbody>
+      
+        <tr>
+          <td>api.novabank.example:443</td>
+          <td>ECDHE</td>
+          <td>100</td>
+          <td>Plan migration to ML-KEM or hybrid key establishment</td>
+        </tr>
+      
+        <tr>
+          <td>api.novabank.example:443 certificate</td>
+          <td>RSA</td>
+          <td>100</td>
+          <td>Plan migration to ML-KEM or hybrid key establishment</td>
+        </tr>
+      
+        <tr>
+          <td>Legacy RSA verification key detected</td>
+          <td>RSA</td>
+          <td>78</td>
+          <td>Plan migration to ML-KEM or hybrid key establishment</td>
+        </tr>
+      
+        <tr>
+          <td>ECDH key exchange in TLS helper</td>
+          <td>ECDH</td>
+          <td>78</td>
+          <td>Plan migration to ML-KEM or hybrid key establishment</td>
+        </tr>
+      
+        <tr>
+          <td>RSA-PKCS1-2048-Signing</td>
+          <td>RSASSA-PKCS1</td>
+          <td>70</td>
+          <td>Plan migration to ML-DSA or SLH-DSA, potentially via hybrid deployments</td>
+        </tr>
+      
+        <tr>
+          <td>Public TLS Gateway</td>
+          <td>ECDHE</td>
+          <td>70</td>
+          <td>Plan migration to ML-KEM or hybrid key establishment</td>
+        </tr>
+      
+        <tr>
+          <td>api.novabank.example certificate</td>
+          <td>RSA</td>
+          <td>70</td>
+          <td>Plan migration to ML-KEM or hybrid key establishment</td>
+        </tr>
+      
+        <tr>
+          <td>RSA-2048 Active Server Key</td>
+          <td>RSA</td>
+          <td>70</td>
+          <td>Plan migration to ML-KEM or hybrid key establishment</td>
+        </tr>
+      
+        <tr>
+          <td>admin.novabank.example:22</td>
+          <td>RSA</td>
+          <td>70</td>
+          <td>Plan migration to ML-KEM or hybrid key establishment</td>
+        </tr>
+      
+        <tr>
+          <td>admin.novabank.example:22 certificate</td>
+          <td>RSA</td>
+          <td>70</td>
+          <td>Plan migration to ML-KEM or hybrid key establishment</td>
+        </tr>
+      
+      </tbody>
+    </table>
+  
+    <h3>Wave 2 — by 2031</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Asset</th>
+          <th>Algorithm / Protocol</th>
+          <th>Score</th>
+          <th>Replacement</th>
+        </tr>
+      </thead>
+      <tbody>
+      
+        <tr>
+          <td>AES-GCM-256</td>
+          <td>AES-GCM</td>
+          <td>43</td>
+          <td>Keep under review; confirm key lengths and protocol context</td>
+        </tr>
+      
+      </tbody>
+    </table>
+  
+
+  <h2>Asset inventory</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Asset</th>
+        <th>Source</th>
+        <th>Type</th>
+        <th>Algorithm / Protocol</th>
+        <th>Risk</th>
+        <th>Wave</th>
+      </tr>
+    </thead>
+    <tbody>
+    
+      <tr>
+        <td>api.novabank.example:443</td>
+        <td>surface-scan</td>
+        <td>protocol</td>
+        <td>ECDHE</td>
+        <td class="high">high (100)</td>
+        <td>Wave 1 — by 2028</td>
+      </tr>
+    
+      <tr>
+        <td>api.novabank.example:443 certificate</td>
+        <td>surface-scan</td>
+        <td>certificate</td>
+        <td>RSA</td>
+        <td class="high">high (100)</td>
+        <td>Wave 1 — by 2028</td>
+      </tr>
+    
+      <tr>
+        <td>Legacy RSA verification key detected</td>
+        <td>code-scan</td>
+        <td>algorithm</td>
+        <td>RSA</td>
+        <td class="high">high (78)</td>
+        <td>Wave 1 — by 2028</td>
+      </tr>
+    
+      <tr>
+        <td>ECDH key exchange in TLS helper</td>
+        <td>code-scan</td>
+        <td>algorithm</td>
+        <td>ECDH</td>
+        <td class="high">high (78)</td>
+        <td>Wave 1 — by 2028</td>
+      </tr>
+    
+      <tr>
+        <td>RSA-PKCS1-2048-Signing</td>
+        <td>cyclonedx</td>
+        <td>algorithm</td>
+        <td>RSASSA-PKCS1</td>
+        <td class="high">high (70)</td>
+        <td>Wave 1 — by 2028</td>
+      </tr>
+    
+      <tr>
+        <td>Public TLS Gateway</td>
+        <td>cyclonedx</td>
+        <td>protocol</td>
+        <td>ECDHE</td>
+        <td class="high">high (70)</td>
+        <td>Wave 1 — by 2028</td>
+      </tr>
+    
+      <tr>
+        <td>api.novabank.example certificate</td>
+        <td>cyclonedx</td>
+        <td>certificate</td>
+        <td>RSA</td>
+        <td class="high">high (70)</td>
+        <td>Wave 1 — by 2028</td>
+      </tr>
+    
+      <tr>
+        <td>RSA-2048 Active Server Key</td>
+        <td>cyclonedx</td>
+        <td>related-crypto-material</td>
+        <td>RSA</td>
+        <td class="high">high (70)</td>
+        <td>Wave 1 — by 2028</td>
+      </tr>
+    
+      <tr>
+        <td>admin.novabank.example:22</td>
+        <td>surface-scan</td>
+        <td>protocol</td>
+        <td>RSA</td>
+        <td class="high">high (70)</td>
+        <td>Wave 1 — by 2028</td>
+      </tr>
+    
+      <tr>
+        <td>admin.novabank.example:22 certificate</td>
+        <td>surface-scan</td>
+        <td>certificate</td>
+        <td>RSA</td>
+        <td class="high">high (70)</td>
+        <td>Wave 1 — by 2028</td>
+      </tr>
+    
+      <tr>
+        <td>AES-GCM-256</td>
+        <td>cyclonedx</td>
+        <td>algorithm</td>
+        <td>AES-GCM</td>
+        <td class="medium">medium (43)</td>
+        <td>Wave 2 — by 2031</td>
+      </tr>
+    
+    </tbody>
+  </table>
+</body>
+</html>

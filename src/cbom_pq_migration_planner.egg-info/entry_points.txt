@@ -1,0 +1,2 @@
+[console_scripts]
+cbomplan = cbom_pq_migration_planner.cli:app

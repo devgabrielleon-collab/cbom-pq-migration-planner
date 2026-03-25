@@ -1,0 +1,22 @@
+{
+  "findings": [
+    {
+      "title": "Legacy RSA verification key detected",
+      "algorithm": "RSA-2048",
+      "category": "signature",
+      "severity": "high",
+      "file": "src/auth/verify.py",
+      "line": 44,
+      "message": "Verification pipeline still depends on RSA-2048 public keys."
+    },
+    {
+      "title": "ECDH key exchange in TLS helper",
+      "algorithm": "ECDH",
+      "category": "key-exchange",
+      "severity": "high",
+      "file": "src/net/tls_helper.py",
+      "line": 91,
+      "message": "TLS helper maps directly to classical ECDH-based key exchange."
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cbom-pq-migration-planner"
+version = "0.1.0"
+description = "Generate cryptographic inventory and post-quantum migration roadmaps from CycloneDX SBOM/CBOM and scan reports."
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [
+  {name = "OpenAI"}
+]
+dependencies = [
+  "jinja2>=3.1.0",
+  "typer>=0.12.0"
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.0.0"
+]
+
+[project.scripts]
+cbomplan = "cbom_pq_migration_planner.cli:app"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
