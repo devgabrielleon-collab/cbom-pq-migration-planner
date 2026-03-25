@@ -1,144 +1,125 @@
-# cbom-pq-migration-planner
+# CBOM PQ Migration Planner 🔐
 
-A portfolio-ready, enterprise-style project that ingests **CycloneDX SBOM/CBOM** plus external scan reports and produces:
+[![CI](https://github.com/devgabrielleon-collab/cbom-pq-migration-planner/workflows/CI/badge.svg)](https://github.com/devgabrielleon-collab/cbom-pq-migration-planner/actions)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-- a **normalized cryptographic inventory**
-- a **risk-scored asset list**
-- a **post-quantum migration roadmap**
-- an **executive summary**
-- a **dashboard-style HTML report**
+## 📋 Overview
 
-## Why this project matters
+**CBOM PQ Migration Planner** is an enterprise-grade tool designed to help organizations transition from quantum-vulnerable cryptography to post-quantum cryptography (PQC). It ingests **CycloneDX Software/Cryptographic Bill of Materials (SBOM/CBOM)** plus external security scan reports and produces actionable migration roadmaps aligned with NIST and NCSC guidance.
 
-NIST and the NCCoE recommend that organizations begin with **cryptographic discovery and inventory** so they can understand where quantum-vulnerable public-key cryptography is used and prioritize migration roadmaps. citeturn737378view0turn737378view2
+### Key Outputs
 
-CycloneDX CBOM is designed to represent cryptographic assets such as **algorithms, keys, certificates, and their relationships to software components**, which makes it a natural input format for this workflow. citeturn737378view1turn843457search2
+- **Normalized Cryptographic Inventory**: Unified view of all cryptographic assets across your infrastructure
+- **Risk-Scored Asset List**: Prioritized assets based on exposure, environment, and data sensitivity
+- **Post-Quantum Migration Roadmap**: Phased migration plan aligned with NCSC milestones (2028, 2031, 2035)
+- **Executive Summary**: High-level overview for stakeholders and decision-makers
+- **Interactive Dashboard**: HTML-based visualization of migration progress and asset distribution
 
-The roadmap defaults in this project align with the NCSC's milestone guidance:
-- by **2028**: discovery, assessment, and an initial migration plan
-- by **2031**: highest-priority migration activities
-- by **2035**: complete migration to PQC for all systems, services, and products. citeturn739029search0turn739029search4
+## 🎯 Why This Project Matters
 
-## What the tool does
+The quantum computing threat to cryptography is no longer theoretical. Organizations must begin **cryptographic discovery and inventory** to understand where quantum-vulnerable public-key cryptography is deployed and prioritize migration efforts.
 
-`cbomplan` reads:
-- a **CycloneDX BOM** (SBOM or CBOM)
-- an optional **code-discovery report** (for example from `pq-ready-code-scanner`)
-- an optional **surface audit report** (for example from `pq-surface-audit`)
+### NIST & NCSC Alignment
 
-It then:
-1. extracts cryptographic assets
-2. normalizes algorithms and protocols
-3. classifies quantum exposure
-4. scores asset risk using environment, exposure, data sensitivity, and crypto agility
-5. assigns assets to migration waves
-6. generates JSON, Markdown, and HTML outputs
+- **2028**: Discovery, assessment, and initial migration plan
+- **2031**: Highest-priority migration activities
+- **2035**: Complete migration to PQC for all systems, services, and products
 
-## Outputs
+This tool automates the discovery and planning phases, reducing time-to-action and improving accuracy.
 
-Running the tool produces:
-- `inventory.json`
-- `migration_plan.json`
-- `executive_summary.md`
-- `dashboard.html`
+## 🚀 Quick Start
 
-## Install
+### Installation
 
 ```bash
-pip install -e .[dev]
+# Clone the repository
+git clone https://github.com/devgabrielleon-collab/cbom-pq-migration-planner.git
+cd cbom-pq-migration-planner
+
+# Install dependencies
+pip install -e .
 ```
 
-## Quick start
+### Usage
 
 ```bash
-cbomplan build   --sbom ./samples/cyclonedx_cbom.json   --code-scan ./samples/pq_ready_report.json   --surface-scan ./samples/pq_surface_report.json   --system-name "NovaBank Identity Gateway"   --owner "Security Architecture"   --output ./out
+# Basic usage with a CycloneDX CBOM
+cbomplan plan --cbom path/to/cbom.json
+
+# Include code discovery and surface audit reports
+cbomplan plan \
+  --cbom path/to/cbom.json \
+  --code-discovery path/to/code-discovery.json \
+  --surface-audit path/to/surface-audit.json
+
+# Generate all outputs
+cbomplan plan --cbom path/to/cbom.json --output-dir ./migration-plan
 ```
 
-## Run tests
+### Outputs
+
+After running the tool, you'll find:
+
+- `inventory.json` - Complete cryptographic asset inventory
+- `migration_plan.json` - Phased migration strategy
+- `executive_summary.md` - Stakeholder-ready summary
+- `dashboard.html` - Interactive visualization
+
+## 📊 Features
+
+- **Cryptographic Asset Extraction**: Automatically identifies algorithms, keys, and certificates
+- **Algorithm Normalization**: Standardizes cryptographic nomenclature across sources
+- **Quantum Exposure Classification**: Categorizes assets by quantum vulnerability level
+- **Risk Scoring**: Multi-factor risk assessment (environment, exposure, data sensitivity, crypto agility)
+- **Migration Wave Assignment**: Intelligently groups assets into migration phases
+- **Multi-Format Output**: JSON, Markdown, and HTML for different stakeholder needs
+
+## 🔧 Development
+
+### Running Tests
 
 ```bash
-pytest -q
+pytest tests/ -v
 ```
 
-## Project structure
+### Project Structure
 
-```text
+```
 cbom-pq-migration-planner/
-├─ src/cbom_pq_migration_planner/
-│  ├─ cli.py
-│  ├─ models.py
-│  ├─ knowledge.py
-│  ├─ parsers.py
-│  ├─ scoring.py
-│  ├─ planner.py
-│  └─ report.py
-├─ samples/
-├─ tests/
-├─ out/
-└─ .github/workflows/
+├── src/cbom_pq_migration_planner/
+│   ├── cli.py                 # Command-line interface
+│   ├── planner.py             # Core migration planning logic
+│   ├── models.py              # Data models
+│   ├── risk_scorer.py         # Risk assessment engine
+│   └── reporters.py           # Output generation
+├── tests/                     # Test suite
+├── samples/                   # Example CBOM and scan reports
+└── pyproject.toml            # Project configuration
 ```
 
-## Supported inputs
+## 📚 Integration with Other Tools
 
-### CycloneDX BOM
-The parser supports practical subsets of CycloneDX 1.6+ and 1.7 cryptographic objects such as:
-- `cryptographic-asset` components
-- `cryptoProperties.assetType = algorithm`
-- `certificate`
-- `protocol`
-- `related-crypto-material`
+This tool works seamlessly with:
 
-### Code scan report
-Expected shape:
+- **pq-ready-code-scanner**: Detects quantum-vulnerable code patterns
+- **pq-surface-audit**: Audits cryptographic surface exposure
+- **CycloneDX**: Industry-standard SBOM/CBOM format
 
-```json
-{
-  "findings": [
-    {
-      "title": "RSA public key usage",
-      "algorithm": "RSA-2048",
-      "category": "signature",
-      "severity": "high",
-      "file": "src/auth.py",
-      "line": 44
-    }
-  ]
-}
-```
+## 🤝 Contributing
 
-### Surface scan report
-Expected shape:
+We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
-```json
-{
-  "assets": [
-    {
-      "target": "api.example.com:443",
-      "service_type": "https",
-      "exposure": "public",
-      "criticality": "high",
-      "data_sensitivity": "high",
-      "tls": {
-        "version": "TLSv1.2",
-        "cipher": "ECDHE-RSA-AES256-GCM-SHA384",
-        "certificate": {
-          "public_key_algorithm": "RSA",
-          "public_key_size": 2048,
-          "signature_algorithm": "sha256WithRSAEncryption",
-          "issuer": "Example CA"
-        }
-      }
-    }
-  ]
-}
-```
+## 📄 License
 
-## Notes
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
 
-- This is a **defensive planning tool**, not an exploit framework.
-- It helps teams create visibility and a migration backlog.
-- NIST's principal PQC standards now include **FIPS 203 (ML-KEM)**, **FIPS 204 (ML-DSA)**, and **FIPS 205 (SLH-DSA)**. citeturn737378view3turn311489search6turn311489search9turn311489search18
+## 🔗 Resources
 
-## Disclaimer
+- [NIST Post-Quantum Cryptography](https://csrc.nist.gov/projects/post-quantum-cryptography/)
+- [CycloneDX CBOM Specification](https://cyclonedx.org/capabilities/cbom/)
+- [NCSC Quantum-Safe Transition Guidance](https://www.ncsc.gov.uk/collection/quantum-safe-transition-principles)
 
-This project is educational and portfolio-oriented. It should support, not replace, a full enterprise cryptographic inventory program.
+## 📧 Support
+
+For issues, questions, or suggestions, please open an [issue](https://github.com/devgabrielleon-collab/cbom-pq-migration-planner/issues) on GitHub.
